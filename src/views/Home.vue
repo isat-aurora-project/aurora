@@ -1,13 +1,13 @@
 <template>
-  <HelloWorld />
+  <the-code-editor />
 </template>
 
 <script>
-  import HelloWorld from '../components/HelloWorld'
+  import TheCodeEditor from '@/components/TheCodeEditor'
 
   export default {
     components: {
-      HelloWorld
+      'the-code-editor': TheCodeEditor
     }
   }
 </script>
