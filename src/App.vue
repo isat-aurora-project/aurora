@@ -38,7 +38,7 @@
     >
       <v-toolbar-side-icon @click.stop="drawer = !drawer" />
       <img
-        src="@/assets/logo.svg"
+        src="/img/icons/favicon-32x32.png"
         width="38"
         height="38"
         style="border-radius:2px;"
@@ -56,7 +56,7 @@
       app
       inset
     >
-      <span class="mx-2">&copy; {{ copy }} Aurora, All Rights Reserved</span>
+      <span class="mx-2">&copy; {{ copy }} The Aurora Project, All Rights Reserved</span>
     </v-footer>
   </v-app>
 </template>
