@@ -39,8 +39,8 @@ export const abilityPlugin = store => {
  */
 export const defineAbilitiesFor = (roles, userId) => {
   const { rules, can } = AbilityBuilder.extract()
-  // members can
-  if (roles.includes('member')) {
+  // coders can
+  if (roles.includes('coder')) {
     // view other people's profiles if they are public
     can(['read'], 'Profile', { 'user_metadata.public': true })
     // update their own profiles
