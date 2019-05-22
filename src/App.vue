@@ -38,7 +38,7 @@
     >
       <v-toolbar-side-icon @click.stop="drawer = !drawer" />
       <img
-        src="@/assets/logo.svg"
+        src="/img/icons/favicon-32x32.png"
         width="38"
         height="38"
         style="border-radius:2px;"
@@ -47,6 +47,20 @@
         Aurora
       </v-toolbar-title>
       <v-spacer />
+      <v-toolbar-items>
+        <v-btn
+          v-if="!isAuthenticated"
+          flat
+          class="text-uppercase font-weight-black"
+          @click="$store.dispatch('auth/login')"
+        >
+          Login
+        </v-btn>
+        <the-account-menu
+          v-if="isAuthenticated"
+          :avatar="avatar"
+        />
+      </v-toolbar-items>
     </v-toolbar>
 
     <v-content>
@@ -56,12 +70,13 @@
       app
       inset
     >
-      <span class="mx-2">&copy; {{ copy }} Aurora, All Rights Reserved</span>
+      <span class="mx-2">&copy; {{ copy }} The Aurora Project, All Rights Reserved</span>
     </v-footer>
   </v-app>
 </template>
 
 <script>
+  import TheAccountMenu from '@/components/menus/TheAccountMenu'
   export default {
     name: 'App',
     props: {
@@ -70,17 +85,28 @@
         default: true
       }
     },
+    components: {
+      'the-account-menu': TheAccountMenu
+    },
     data () {
       return {
         drawer: true,
-        mini: false,
         routes: this.$router.options.routes
       }
     },
     computed: {
+      avatar () {
+        return this.$store.getters['auth/avatar']
+      },
       copy: () => {
         const now = new Date().getFullYear()
         return now === 2019 ? now : `2019-${now}`
+      },
+      isAuthenticated () {
+        return this.$store.getters['auth/isAuthenticated']
+      },
+      mini () {
+        return this.$store.state.common.navDrawerIsMini
       }
     }
   }
