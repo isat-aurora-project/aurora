@@ -58,10 +58,11 @@ const auth = createAuth({
  * @see {@link https://openid.net/specs/openid-connect-core-1_0.html#AddressClaim|OpenID Connect Implementer's Guide}
  *
  * @typedef  {Object}  Identity
- * @property {string}  user_id    - May contain multiple lines, e.g. \n
- * @property {string}  provider   - The city
- * @property {string}  connection - The state, province, prefecture, etc.
- * @property {boolean} isSocial   - Zip code
+ * @property {string}  user_id      - May contain multiple lines, e.g. \n
+ * @property {string}  provider     - The city
+ * @property {string}  connection   - The state, province, prefecture, etc.
+ * @property {boolean} isSocial     - Zip code
+ * @property {string}  access_token - The API access token (if any) associated with this provider
  */
 
 /**
@@ -143,17 +144,17 @@ const initialState = {
      * @see {@link https://openid.net/specs/openid-connect-basic-1_0.html|OpenID Connect Implementer's Guide}
      *
      * @inner
-     * @property {boolean}         public          - Does the user want their profile to be public? default: false
-     * @property {string}          [title]         - Mr., Ms., Mx., Dr. etc.
-     * @property {string}          given_name      - First name
-     * @property {string}          [nickname]      - What the user prefers to be called
-     * @property {string}          [middle_name]   - Middle name or initial
-     * @property {string}          family_name     - Last name
-     * @property {string}          [picture]       - URL or file path to profile picture/avatar
-     * @property {boolean}         profileComplete - Has the user completed the user profile?
-     * @property {string}          phone_number    - Phone number
-     * @property {boolean}         ok_to_text      - Is it okay to send texts to the phone number?
-     * @property {string}          bio             - Short bio of the user
+     * @property {boolean} public          - Does the user want their profile to be public? default: false
+     * @property {string}  [title]         - Mr., Ms., Mx., Dr. etc.
+     * @property {string}  given_name      - First name
+     * @property {string}  [nickname]      - What the user prefers to be called
+     * @property {string}  [middle_name]   - Middle name or initial
+     * @property {string}  family_name     - Last name
+     * @property {string}  [picture]       - URL or file path to profile picture/avatar
+     * @property {boolean} profileComplete - Has the user completed the user profile?
+     * @property {string}  phone_number    - Phone number
+     * @property {boolean} ok_to_text      - Is it okay to send texts to the phone number?
+     * @property {string}  bio             - Short bio of the user
      */
     user_metadata: {
       public: false,

@@ -23,9 +23,7 @@ const actions = {
   }
 }
 
-const getters = {
-  layout: state => state.layout
-}
+const getters = {}
 
 export default {
   namespaced: true,
