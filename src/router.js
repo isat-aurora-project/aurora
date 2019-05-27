@@ -4,6 +4,7 @@ import { store, ability } from '@/store'
 import Home from '@/views/Home.vue'
 import TheHandleAuthPage from '@/components/pages/TheHandleAuthPage'
 import TheDashboardPage from '@/components/pages/TheDashboardPage'
+import TheEditorPage from '@/components/pages/TheEditorPage'
 
 Vue.use(Router)
 
@@ -41,6 +42,15 @@ const router = new Router({
       component: TheDashboardPage,
       meta: {
         icon: 'mdi-view-dashboard',
+        layout: 'app-admin-layout'
+      }
+    },
+    {
+      path: '/editor',
+      name: 'editor',
+      component: TheEditorPage,
+      meta: {
+        icon: 'mdi-file-document-edit',
         layout: 'app-admin-layout'
       }
     }
