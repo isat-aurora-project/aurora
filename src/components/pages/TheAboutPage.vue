@@ -2,10 +2,9 @@
   <v-container>
     <v-layout>
       <v-flex xs12>
-        <h1 class="display-2">
-          Dashboard
-        </h1>
-        <p>No content yet.</p>
+        <h2 class="display-2">
+          The About Page
+        </h2>
       </v-flex>
     </v-layout>
   </v-container>
@@ -13,8 +12,6 @@
 
 <script>
   export default {
-    name: 'TheDashboardPage',
-    data: () => ({
-    })
+    name: 'TheAboutPage'
   }
 </script>

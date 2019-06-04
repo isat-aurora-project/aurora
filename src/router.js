@@ -1,8 +1,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import { mdiHome, mdiInformation, mdiViewDashboard } from '@mdi/js'
+import {
+  mdiHome,
+  mdiInformation,
+  mdiViewDashboard,
+  mdiGithubCircle
+} from '@mdi/js'
 import { store, ability } from '@/store'
-import Home from '@/views/Home.vue'
+import TheHomePage from '@/components/pages/TheHomePage.vue'
 import TheHandleAuthPage from '@/components/pages/TheHandleAuthPage'
 import TheDashboardPage from '@/components/pages/TheDashboardPage'
 import TheRepositoriesPage from '@/components/pages/TheRepositoriesPage'
@@ -17,7 +22,7 @@ const router = new Router({
     {
       path: '/',
       name: 'home',
-      component: Home,
+      component: TheHomePage,
       meta: {
         icon: mdiHome
       }
@@ -28,7 +33,7 @@ const router = new Router({
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ '@/views/About.vue'),
+      component: () => import(/* webpackChunkName: "about" */ '@/components/pages/TheAboutPage.vue'),
       meta: {
         icon: mdiInformation
       }
@@ -51,7 +56,7 @@ const router = new Router({
       name: 'repositories',
       component: TheRepositoriesPage,
       meta: {
-        icon: 'mdi-github-circle'
+        icon: mdiGithubCircle
       }
     },
     {
