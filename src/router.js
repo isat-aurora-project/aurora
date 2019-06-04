@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import { mdiHome, mdiInformation, mdiViewDashboard } from '@mdi/js'
 import { store, ability } from '@/store'
 import Home from '@/views/Home.vue'
 import TheHandleAuthPage from '@/components/pages/TheHandleAuthPage'
@@ -16,7 +17,7 @@ const router = new Router({
       name: 'home',
       component: Home,
       meta: {
-        icon: 'mdi-home'
+        icon: mdiHome
       }
     },
     {
@@ -27,7 +28,7 @@ const router = new Router({
       // which is lazy-loaded when the route is visited.
       component: () => import(/* webpackChunkName: "about" */ '@/views/About.vue'),
       meta: {
-        icon: 'mdi-information'
+        icon: mdiInformation
       }
     },
     {
@@ -40,8 +41,7 @@ const router = new Router({
       name: 'dashboard',
       component: TheDashboardPage,
       meta: {
-        icon: 'mdi-view-dashboard',
-        layout: 'app-admin-layout'
+        icon: mdiViewDashboard
       }
     }
   ]
