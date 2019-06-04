@@ -27,6 +27,22 @@ export const PROFILE_UPDATE_SUCCESS = 'PROFILE_UPDATE_SUCCESS'
 export const PROFILE_UPDATE_FAILURE = 'PROFILE_UPDATE_FAILURE'
 
 /**
+ * Feathers API
+ */
+export const SET_API = 'SET_API'
+export const API_REQUEST = 'API_REQUEST'
+export const API_SUCCESS = 'API_SUCCESS'
+export const API_FAILURE = 'API_FAILURE'
+
+/**
+ * GitHub API
+ */
+export const SET_GH_TOKEN = 'SET_GH_TOKEN'
+export const GH_API_REQUEST = 'GH_API_REQUEST'
+export const GH_API_SUCCESS = 'GH_API_SUCCESS'
+export const GH_API_FAILURE = 'GH_API_FAILURE'
+
+/**
  * Common
  */
 export const TOGGLE_NAV_DRAWER_MINI = 'TOGGLE_NAV_DRAWER_MINI'

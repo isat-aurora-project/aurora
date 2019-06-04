@@ -4,6 +4,8 @@ import { store, ability } from '@/store'
 import Home from '@/views/Home.vue'
 import TheHandleAuthPage from '@/components/pages/TheHandleAuthPage'
 import TheDashboardPage from '@/components/pages/TheDashboardPage'
+import TheRepositoriesPage from '@/components/pages/TheRepositoriesPage'
+import TheRepositoryPage from '@/components/pages/TheRepositoryPage'
 
 Vue.use(Router)
 
@@ -40,9 +42,21 @@ const router = new Router({
       name: 'dashboard',
       component: TheDashboardPage,
       meta: {
-        icon: 'mdi-view-dashboard',
-        layout: 'app-admin-layout'
+        icon: 'mdi-view-dashboard'
       }
+    },
+    {
+      path: '/repositories',
+      name: 'repositories',
+      component: TheRepositoriesPage,
+      meta: {
+        icon: 'mdi-github-circle'
+      }
+    },
+    {
+      path: '/repositories/:username/:reponame',
+      name: 'repository',
+      component: TheRepositoryPage
     }
   ]
 })
