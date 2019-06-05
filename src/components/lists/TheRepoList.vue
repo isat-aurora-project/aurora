@@ -1,15 +1,15 @@
 <template>
   <v-list two-line>
     <template v-for="repo in repos">
-      <v-list-tile
+      <v-list-item
         :key="repo.id"
         :to="`/repositories/${repo.owner.login}/${repo.name}`"
       >
-        <v-list-tile-content>
-          <v-list-tile-title v-html="repo.name" />
-          <v-list-tile-sub-title v-html="repo.description" />
-        </v-list-tile-content>
-      </v-list-tile>
+        <v-list-item-content>
+          <v-list-item-title v-html="repo.name" />
+          <v-list-item-sub-title v-html="repo.description" />
+        </v-list-item-content>
+      </v-list-item>
       <v-divider :key="repo.name" />
     </template>
   </v-list>

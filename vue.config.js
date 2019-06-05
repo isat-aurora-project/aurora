@@ -1,4 +1,5 @@
 const fs = require('fs')
+const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin')
 
 module.exports = {
   css: {
@@ -21,5 +22,20 @@ module.exports = {
         }
       }
     }
+    config.plugins.push(new MonacoWebpackPlugin({
+      languages: [
+        'css',
+        'html',
+        'ini',
+        'javascript',
+        'json',
+        'markdown',
+        'php',
+        'python',
+        'r',
+        'scss',
+        'yaml'
+      ]
+    }))
   }
 }

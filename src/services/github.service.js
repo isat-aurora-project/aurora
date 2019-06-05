@@ -45,11 +45,16 @@ export const github = token => {
      * @param   {Object}  params      An object containing named parameters
      * @param   {Repo}    params.repo A Repo object as defined by the github-api package
      * @param   {String}  params.sha  The SHA hash associated with a tree or subtree on GitHub
+     * @param   {String}  params.base The base path for this level of the tree
      * @returns {Promise}             Promise that resolves to the subtree array of files
      */
-    tree: async function t ({ repo, sha }) {
+    tree: async function t ({ repo, sha, base = '' }) {
       // get the nodes in the current level of the tree
-      const nodes = (await repo.getTree(sha)).data.tree.sort(nSort)
+      let nodes = (await repo.getTree(sha)).data.tree.sort(nSort)
+      // update the path, if necessary
+      if (base) {
+        nodes = nodes.map(n => ({ ...n, path: base + n.path }))
+      }
       // separate the nodes into sorted lists of files and folders
       // props: https://stackoverflow.com/a/47225591
       const [dirs, files] = nodes.reduce(
@@ -60,7 +65,7 @@ export const github = token => {
       )
       // map the items in the tree to items usable by v-treeview (Vuetify)
       return Promise.all([
-        ...dirs.map(async d => ({ ...d, children: await t({ repo, sha: d.sha }) })),
+        ...dirs.map(async d => ({ ...d, children: await t({ repo, sha: d.sha, base: d.path + '/' }) })),
         ...files
       ])
     },
