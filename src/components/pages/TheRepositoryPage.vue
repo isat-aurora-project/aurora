@@ -2,19 +2,28 @@
   <v-container>
     <v-layout>
       <v-flex xs12>
-        <h2>Repo: {{ repo.name }}</h2>
-        <the-file-list :items="items" />
+        <h2>Repo: {{ $route.params.reponame }}</h2>
+        <!-- <the-file-list
+          :items="items"
+          @file-clicked="handleClick"
+        /> -->
+        <the-github-editor
+          :user="$route.params.username"
+          :repo="$route.params.reponame"
+        />
       </v-flex>
     </v-layout>
   </v-container>
 </template>
 
 <script>
-  import TheFileList from '@/components/lists/TheFileList'
+  import TheGithubEditor from '@/components/editor/TheGithubEditor'
+  // import TheFileList from '@/components/lists/TheFileList'
   export default {
     name: 'TheRepositoryPage',
     components: {
-      TheFileList
+      // TheFileList,
+      'the-github-editor': TheGithubEditor
     },
     data: () => ({
       repo: {
@@ -22,23 +31,10 @@
       },
       items: []
     }),
-    async mounted () {
-      this.repo = await this.$store.dispatch('github/call', {
-        method: 'branch',
-        params: {
-          user: this.$route.params.username,
-          repo: this.$route.params.reponame,
-          branch: 'master'
-        }
-      })
-      // console.log(this.repo)
-      this.items = await this.$store.dispatch('github/call', {
-        method: 'getTree',
-        params: {
-          repo: 'master'
-        }
-      })
-      // console.log(this.items)
+    methods: {
+      handleClick (item) {
+        console.log(item)
+      }
     }
   }
 </script>

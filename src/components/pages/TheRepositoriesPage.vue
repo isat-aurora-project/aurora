@@ -5,28 +5,19 @@
         <h2 class="display-2">
           Repositories
         </h2>
-        <v-list two-line>
-          <template v-for="repo in repos">
-            <v-list-tile
-              :key="repo.id"
-              :to="`/repositories/${repo.owner.login}/${repo.name}`"
-            >
-              <v-list-tile-content>
-                <v-list-tile-title v-html="repo.name" />
-                <v-list-tile-sub-title v-html="repo.description" />
-              </v-list-tile-content>
-            </v-list-tile>
-            <v-divider :key="repo.name" />
-          </template>
-        </v-list>
+        <the-repo-list :repos="repos" />
       </v-flex>
     </v-layout>
   </v-container>
 </template>
 
 <script>
+  import TheRepoList from '@/components/lists/TheRepoList'
   export default {
     name: 'TheRepositoriesPage',
+    components: {
+      TheRepoList
+    },
     data: () => ({
       repos: []
     }),

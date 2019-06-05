@@ -63,6 +63,9 @@ export const github = token => {
         ...dirs.map(async d => ({ ...d, children: await t({ repo, sha: d.sha }) })),
         ...files
       ])
+    },
+    getContents: async function ({ branch = 'master', path, raw = false }) {
+      return this.repo.getContents(branch, path, raw)
     }
   }
 }

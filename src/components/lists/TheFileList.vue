@@ -1,12 +1,14 @@
 <template>
   <v-treeview
-    v-model="files"
     activatable
+    :active.sync="active"
     :items="items"
     item-key="sha"
     item-text="path"
     :open="open"
     open-on-click
+    return-object
+    transition
   >
     <template v-slot:prepend="{ item, open }">
       <v-icon v-if="item.type === 'tree'">
@@ -20,6 +22,20 @@
 </template>
 
 <script>
+  import {
+    mdiFolder,
+    mdiLanguageCss3,
+    mdiLanguageHtml5,
+    mdiLanguageJavascript,
+    mdiJson,
+    mdiMarkdown,
+    mdiFolderOpen,
+    mdiLanguagePhp,
+    mdiLanguagePython,
+    mdiLanguageR,
+    mdiSass,
+    mdiFileDocumentOutline
+  } from '@mdi/js'
   export default {
     name: 'TheFileList',
     props: {
@@ -29,24 +45,31 @@
       }
     },
     data: () => ({
-      files: [],
+      active: [],
       icons: {
-        closed: 'mdi-folder',
-        css: 'mdi-language-css3',
-        html: 'mdi-language-html5',
-        js: 'mdi-language-javascript',
-        json: 'mdi-json',
-        md: 'mdi-markdown',
-        open: 'mdi-folder-open',
-        php: 'mdi-language-php',
-        py: 'mdi-language-python',
-        r: 'mdi-language-r',
-        sass: 'mdi-sass',
-        scss: 'mdi-sass',
-        text: 'mdi-file-document-outline'
+        closed: mdiFolder,
+        css: mdiLanguageCss3,
+        html: mdiLanguageHtml5,
+        js: mdiLanguageJavascript,
+        json: mdiJson,
+        md: mdiMarkdown,
+        open: mdiFolderOpen,
+        php: mdiLanguagePhp,
+        py: mdiLanguagePython,
+        r: mdiLanguageR,
+        sass: mdiSass,
+        scss: mdiSass,
+        text: mdiFileDocumentOutline
       },
       open: []
     }),
+    watch: {
+      active: function () {
+        if (this.active.length && this.active[0].type !== 'tree') {
+          this.$emit('file-clicked', this.active[0])
+        }
+      }
+    },
     methods: {
       /**
        * Takes a filename, extracts its extension and tries to
