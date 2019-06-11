@@ -1,4 +1,6 @@
 <template>
+<div>
+<div>
     <v-card>
       <codemirror
         v-model="code"
@@ -11,16 +13,38 @@
         >
           Save
         </v-btn>
-        <v-spacer />
         <v-btn 
           color="primary"
           @click="saveAs()"
         >
           Save As
           </v-btn>
+          <v-spacer />
+          <v-btn 
+          color="primary"
+          @click="test()"
+        >
+          Test
+          </v-btn>
       </v-card-actions> 
     </v-card>
+</div>
+<div>
+    <v-card>
+          <v-flex xs12>
+            <v-card color="blue-grey darken-2" class="white--text">
+              <v-card-title primary-title>
+                <div>
+                  <div class="headline">Test Your Code</div>
+                </div>
+              </v-card-title>
+            </v-card>
+          </v-flex>
+    </v-card>
+    </div>
+  </div>
 </template>
+
 
 <script>
   import { codemirror } from 'vue-codemirror'
@@ -52,6 +76,9 @@
       },
        saveAs () {
         console.log("hello")
+      },
+        test () {
+        console.log("hey there")
       }
     }
   }

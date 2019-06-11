@@ -1,0 +1,73 @@
+<template>
+<div>
+    <div class="led active"></div>
+    <div class="led active"></div>
+    <div class="led active"></div>
+    <div class="led active"></div>
+    <div class="led active"></div>
+    <div class="led active"></div>
+    <div class="led active"></div>
+    <div class="led active"></div>
+    <div class="led active"></div>
+    <div class="led active"></div>
+    <div class="led active"></div>
+    <div class="led active"></div>
+    <div class="led active"></div>
+    <div class="led active"></div>
+    <div class="led active"></div>
+    <div class="led active"></div>
+    <div class="led active"></div>
+    <div class="led active"></div>
+    <div class="led active"></div>
+    <div class="led active"></div>
+    <div class="led active"></div>
+    <div class="led active"></div>
+    <div class="led active"></div>
+    <div class="led active"></div>
+    <div class="led active"></div>
+    <div class="led active"></div>
+    <div class="led active"></div>
+    <div class="led active"></div>
+</div>
+
+</template>
+<style>
+.led {
+	border-radius: 500%;
+	background-color: #220000;
+	width: 40px;
+	height: 40px;
+	cursor: pointer;
+	margin: 50px, auto;
+	border: 3px solid #222;
+    float: left
+}
+
+.led:hover, .led.active 
+{
+      animation: colorchange 60s; /* animation-name followed by duration in seconds*/
+         /* you could also use milliseconds (ms) or something like 2.5s */
+      -webkit-animation: colorchange s; /* Chrome and Safari */
+    }
+     @keyframes colorchange
+    {
+      0%   {background: red;}
+      25%  {background: yellow;}
+      50%  {background: blue;}
+      75%  {background: green;}
+      100% {background: red;}
+    }
+
+    @-webkit-keyframes colorchange /* Safari and Chrome - necessary duplicate */
+    {
+      0%   {background: red;}
+      25%  {background: yellow;}
+      50%  {background: blue;}
+      75%  {background: green;}
+      100% {background: red;}
+    }
+	
+	box-shadow: 0px 0px 20px 5px rgba(255, 0, 0, 0.4);
+
+</style>
+
