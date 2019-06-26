@@ -1,7 +1,7 @@
 <template>
     <div 
       class="led"
-      :style="{color}"
+      :style="{backgroundColor: color}"
     ></div>
 </template>
 
@@ -19,8 +19,8 @@ export default {
 
 <style>
 .led {
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
   display: inline-block;
 }
 </style>

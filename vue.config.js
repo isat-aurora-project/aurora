@@ -2,6 +2,15 @@ const fs = require('fs')
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin')
 
 module.exports = {
+  css: {
+    loaderOptions: {
+      sass: {
+        data: '@import "~@/sass/main.scss"',
+        implementation: require('sass'),
+        fiber: require('fibers')
+      }
+    }
+  },
   configureWebpack: config => {
     if (process.env.NODE_ENV !== 'production') {
       config.devServer = {
@@ -19,5 +28,6 @@ module.exports = {
         'python'
       ]
     }))
+    config.devtool = 'source-map'
   }
 }

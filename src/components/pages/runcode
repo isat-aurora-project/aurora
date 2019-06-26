@@ -1,0 +1,13 @@
+  // find out the currently "lit" pixel in our strip
+  const lit = this.strip.findIndex(led => led.color === 'red')
+  // clone the strip
+  const copy = [...this.strip]
+  // turn "off" the currently lit pixel
+  copy[lit].color = 'black'
+  // figure out the next pixel
+  const next = lit + 1 === this.strip.length ? 0 : lit + 1
+  // turn it "on"
+  copy[next].color = 'red'
+  // now reassign the array to the value of the copy
+
+

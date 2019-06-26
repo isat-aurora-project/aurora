@@ -6,54 +6,56 @@
   >
     <template v-slot:activator="{ on }">
       <v-btn
-        flat
+        text
         class="pr-0"
         v-on="on"
       >
         <v-avatar size="38">
-          <img :src="avatar">
+          <img :src="$store.getters['auth/avatar']">
         </v-avatar>
-        <v-icon>mdi-chevron-down</v-icon>
+        <v-icon>{{ icons.dropdown }}</v-icon>
       </v-btn>
     </template>
     <v-list
       dense
       light
     >
-      <v-list-tile to="dashboard">
-        <v-list-tile-action>
-          <v-icon>mdi-view-dashboard</v-icon>
-        </v-list-tile-action>
-        <v-list-tile-content>
-          <v-list-tile-title class="text-capitalize">
+      <v-list-item to="dashboard">
+        <v-list-item-action>
+          <v-icon>{{ icons.dashboard }}</v-icon>
+        </v-list-item-action>
+        <v-list-item-content>
+          <v-list-item-title class="text-capitalize">
             The Dashboard
-          </v-list-tile-title>
-        </v-list-tile-content>
-      </v-list-tile>
-      <v-list-tile @click="logout()">
-        <v-list-tile-action>
-          <v-icon>mdi-exit-run</v-icon>
-        </v-list-tile-action>
-        <v-list-tile-content>
-          <v-list-tile-title class="text-capitalize">
+          </v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+      <v-list-item @click="logout()">
+        <v-list-item-action>
+          <v-icon>{{ icons.logout }}</v-icon>
+        </v-list-item-action>
+        <v-list-item-content>
+          <v-list-item-title class="text-capitalize">
             Logout
-          </v-list-tile-title>
-        </v-list-tile-content>
-      </v-list-tile>
+          </v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
     </v-list>
   </v-menu>
 </template>
 
 <script>
+  import { mdiAccountBox, mdiViewDashboard, mdiExitRun, mdiChevronDown } from '@mdi/js'
   export default {
     name: 'TheAccountMenu',
-    props: {
-      avatar: {
-        type: null,
-        required: true,
-        default: ''
+    data: () => ({
+      icons: {
+        dashboard: mdiViewDashboard,
+        dropdown: mdiChevronDown,
+        profile: mdiAccountBox,
+        logout: mdiExitRun
       }
-    },
+    }),
     methods: {
       logout () {
         this.$store.dispatch('auth/logout')

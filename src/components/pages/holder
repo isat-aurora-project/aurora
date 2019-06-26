@@ -1,73 +1,124 @@
 <template>
-<div>
-    <div class="led active"></div>
-    <div class="led active"></div>
-    <div class="led active"></div>
-    <div class="led active"></div>
-    <div class="led active"></div>
-    <div class="led active"></div>
-    <div class="led active"></div>
-    <div class="led active"></div>
-    <div class="led active"></div>
-    <div class="led active"></div>
-    <div class="led active"></div>
-    <div class="led active"></div>
-    <div class="led active"></div>
-    <div class="led active"></div>
-    <div class="led active"></div>
-    <div class="led active"></div>
-    <div class="led active"></div>
-    <div class="led active"></div>
-    <div class="led active"></div>
-    <div class="led active"></div>
-    <div class="led active"></div>
-    <div class="led active"></div>
-    <div class="led active"></div>
-    <div class="led active"></div>
-    <div class="led active"></div>
-    <div class="led active"></div>
-    <div class="led active"></div>
-    <div class="led active"></div>
-</div>
-
+  <v-container>
+    <v-layout>
+      <v-flex xs12>
+        <v-card class="mx-auto" color="#B0C4DE" width="968" height="712">
+          <div class="position">
+            <div>
+              <an-led-strip class="strip-horizontal strip1" :leds="strip.slice(0,121)"/>
+              <an-led-strip class="strip-vertical strip2" :leds="strip.slice(121, 212)"/>
+              <an-led-strip class="strip-horizontal strip3" :leds="strip.slice(212, 333)"/>
+              <an-led-strip class="strip-vertical strip4" :leds="strip.slice(333, 424)"/>
+            </div>
+           <div>
+            <monaco-editor class="editor" v-model="code" language="javascript" contenteditable="true" ></monaco-editor>
+            </div>
+          </div>
+        </v-card>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
-<style>
-.led {
-	border-radius: 500%;
-	background-color: #220000;
-	width: 40px;
-	height: 40px;
-	cursor: pointer;
-	margin: 50px, auto;
-	border: 3px solid #222;
-    float: left
+
+<script>
+//import { setInterval } from 'timers';
+// import { scan } from '@/scripts/demo'
+import MonacoEditor from "vue-monaco";
+import AnLedStrip from "@/components/simulator/AnLedStrip.vue";
+
+
+export default {
+  components: {
+    AnLedStrip,
+    MonacoEditor,
+  },
+
+  data: () => ({
+    code: `
+// variable to hold our lightstrip
+let strip = []
+
+// setup function runs once at the beginning
+const setup = () => {
+  strip = new Array(424).fill().map({ color: 'black' })
 }
 
-.led:hover, .led.active 
-{
-      animation: colorchange 60s; /* animation-name followed by duration in seconds*/
-         /* you could also use milliseconds (ms) or something like 2.5s */
-      -webkit-animation: colorchange s; /* Chrome and Safari */
-    }
-     @keyframes colorchange
-    {
-      0%   {background: red;}
-      25%  {background: yellow;}
-      50%  {background: blue;}
-      75%  {background: green;}
-      100% {background: red;}
-    }
+// loop function runs constantly, over and over again
+const loop = () => {
+  // find out the currently "lit" pixel in our strip
+  const lit = strip.findIndex(led => led.color === 'red')
+  // clone the strip
+  const copy = [...strip]
+  // turn "off" the currently lit pixel
+  copy[lit].color = 'black'
+  // figure out the next pixel
+  const next = lit + 1 === strip.length ? 0 : lit + 1
+  // turn it "on"
+  copy[next].color = 'red'
+  // now reassign the array to the value of the copy
+  console.log("bo is dumb")
+  return copy
+}
 
-    @-webkit-keyframes colorchange /* Safari and Chrome - necessary duplicate */
-    {
-      0%   {background: red;}
-      25%  {background: yellow;}
-      50%  {background: blue;}
-      75%  {background: green;}
-      100% {background: red;}
-    }
-	
-	box-shadow: 0px 0px 20px 5px rgba(255, 0, 0, 0.4);
+setup()
+while (true) {
+  loop()
+}
+`,
+    strip: []
+  }),
 
+  mounted: function() {
+     let code =  `console.log("bo is dumb");
+`
+    this.strip = new Array(424).fill().map(el => ({ color: "black" }));
+    this.strip[0].color = "red";
+    eval(data())
+    // setInterval(this.scan, 50, this.strip)
+    // setInterval(scan, 200)
+  }
+};
+</script>
+
+<style>
+.position {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.editor {
+  position: absolute;
+  width: 968px;
+  height: 712px;
+  top: 4px;
+  right: 0px;
+}
+.strip-horizontal {
+  display: flex;
+  justify-content: center;
+}
+.strip1 {
+  position: absolute;
+  top: -4px;
+  left: 0;
+}
+.strip2 {
+  position: absolute;
+  transform: rotate(90deg);
+  top: 348px;
+  right: -368px;
+}
+.strip3 {
+  position: absolute;
+  transform: rotate(180deg);
+  top: 716px;
+  left: 0;
+}
+.strip4 {
+  position: absolute;
+  transform: rotate(270deg);
+  top: 228px;
+  right: 489px;
+  width: 100%;
+}
 </style>
-
