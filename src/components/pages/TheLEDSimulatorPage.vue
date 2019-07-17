@@ -27,6 +27,7 @@
             </div>
             <the-code-editor
               class="plot"
+              :code="code"
               language="javascript"
             />
           </div>
@@ -68,6 +69,7 @@ loop () {
       TheCodeEditor,
     },
     data: () => ({
+      code: text,
       intervalID: null,
       running: false,
       stop: stop,
@@ -179,7 +181,6 @@ loop () {
   position: absolute;
   width: 968px;
   height: 712px;
-  top: -20px;
-  right: 24px;
+  top: 4px;
 }
 </style>

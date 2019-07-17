@@ -1,10 +1,5 @@
 <template>
-<v-container>
-  <div id='editor' class='plot'></div>
-
-
-
-</v-container>
+  <div id='editor' class='plot' />
 </template>
 
 <script>
@@ -16,38 +11,18 @@
   linter.defineRule('indent', indent)
   linter.defineRule('quotes', quotes)
   linter.defineRule('semi', semi)
-  let text = `// DO NOT REMOVE COMMENTS!!
-setup () {
-  strip.map((p, i) => {
-    p.color = i === 0 ? 'black': 'red'
-    return p
-  })
-}/***END SETUP***/
-
-loop () {
-  // find out the currently 'unlit' pixel in our strip
-  const unlit = strip.findIndex(led => led.color === 'black')
-  // turn 'on' the currently unlit pixel
-  strip[unlit].color = 'red'
-  // figure out the next pixel
-  const next = unlit + 1 === strip.length ? 0 : unlit + 1
-  // turn it 'off'
-  strip[next].color = 'black'
-}/***END LOOP***/
-`
   export default {
     name: 'TheCodeEditor',
     props: {
+      code: {
+        type: String,
+        default: ''
+      },
       language: {
         type: String,
         default: 'javascript'
       }
     },
-    // value(newVal, ) {
-    //   if (newVal !== this.editor.getValue()) {
-    //     this.editor.setValue(newVal)
-    //   }
-    // },
     data: () => ({
       monaco: null
     }),
@@ -66,10 +41,8 @@ loop () {
       // AFTER you've done all of your configuration...
       // create the editor
       this.editor = monaco.editor.create(this.$el, {
-        value: text,
+        value: this.code,
         language: 'javascript',
-        font: 'Arial',
-        readOnly: this.readOnly,
         ...this.options
       })
       this.editor.onDidChangeModelContent(() => {
