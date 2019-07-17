@@ -1,20 +1,20 @@
 <template>
-    <div 
-      class="led"
-      :style="{backgroundColor: color}"
-    ></div>
+  <div
+    class="led"
+    :style="{backgroundColor: color}"
+  />
 </template>
 
 <script>
-export default {
-  name: 'AnLed',
-  props:{
-    color:{
-      type: String, 
-      default: 'black'
+  export default {
+    name: 'AnLed',
+    props: {
+      color: {
+        type: String,
+        default: 'black'
+      }
     }
   }
-}
 </script>
 
 <style>
@@ -24,4 +24,3 @@ export default {
   display: inline-block;
 }
 </style>
-

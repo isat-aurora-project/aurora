@@ -1,6 +1,6 @@
 <template>
 <v-container>
-  <div id="editor" class="plot"></div>
+  <div id='editor' class='plot'></div>
 
 
 
@@ -10,12 +10,12 @@
 <script>
   // import the monaco editor package
   import * as monaco from 'monaco-editor'
-  const Linter = require("eslint4b/dist/linter")
-  const { indent, quotes, semi } = require("eslint4b/dist/core-rules")
-const linter = new Linter()
-linter.defineRule("indent", indent)
-linter.defineRule("quotes", quotes)
-linter.defineRule("semi", semi)
+  const Linter = require('eslint4b/dist/linter')
+  const { indent, quotes, semi } = require('eslint4b/dist/core-rules')
+  const linter = new Linter()
+  linter.defineRule('indent', indent)
+  linter.defineRule('quotes', quotes)
+  linter.defineRule('semi', semi)
   let text = `// DO NOT REMOVE COMMENTS!!
 setup () {
   strip.map((p, i) => {
@@ -25,29 +25,29 @@ setup () {
 }/***END SETUP***/
 
 loop () {
-  // find out the currently "unlit" pixel in our strip
+  // find out the currently 'unlit' pixel in our strip
   const unlit = strip.findIndex(led => led.color === 'black')
-  // turn "on" the currently unlit pixel
+  // turn 'on' the currently unlit pixel
   strip[unlit].color = 'red'
   // figure out the next pixel
   const next = unlit + 1 === strip.length ? 0 : unlit + 1
-  // turn it "off"
+  // turn it 'off'
   strip[next].color = 'black'
 }/***END LOOP***/
 `
   export default {
-    name: "TheCodeEditor",
+    name: 'TheCodeEditor',
     props: {
       language: {
         type: String,
         default: 'javascript'
       }
     },
-    //value(newVal, ) {
-    // if (newVal !== this.editor.getValue()) {
-    //  this.editor.setValue(newVal)
-    //  }
-    //},
+    // value(newVal, ) {
+    //   if (newVal !== this.editor.getValue()) {
+    //     this.editor.setValue(newVal)
+    //   }
+    // },
     data: () => ({
       monaco: null
     }),
@@ -57,7 +57,7 @@ loop () {
       // configure monaco to NOT use default syntax/semantic validation
       this.monaco.languages.typescript.javascriptDefaults.setDiagnosticsOptions({
         noSemanticValidation: true,
-        noSyntaxValidation: true,
+        noSyntaxValidation: true
       })
       // add in code to make our editor use ESLint (actually eslint4b)
 
@@ -67,10 +67,10 @@ loop () {
       // create the editor
       this.editor = monaco.editor.create(this.$el, {
         value: text,
-        language: "javascript",
-        font: "Arial",
+        language: 'javascript',
+        font: 'Arial',
         readOnly: this.readOnly,
-        ... this.options
+        ...this.options
       })
       this.editor.onDidChangeModelContent(() => {
         if (this.$emit) {

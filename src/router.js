@@ -51,25 +51,23 @@ const router = new Router({
       name: 'editor',
       component: TheEditorPage,
       meta: {
-        icon: 'mdi-file-document-edit',
-        layout: 'app-admin-layout'
+        icon: 'mdi-file-document-edit'
       }
     },
     {
       path: '/ledsimulator',
-      name: 'ledsimulator',
+      name: 'led Simulator',
       component: TheLEDSimulatorPage,
       meta: {
-        icon: 'mdi-file-document-edit',
-        layout: 'app-admin-layout'
+        icon: 'mdi-file-document-edit'
       }
     }
   ]
 })
 
 const waitForStorageToBeReady = (to, from, next) => {
-  if (!store._vm.$root.$data['vuexPersistStateRestored']) {
-    store._vm.$root.$on('vuexPersistStateRestored', () => {
+  if (!store._vm.$root.$data['storageReady']) {
+    store._vm.$root.$on('storageReady', () => {
       // restore abilities on page reload
       ability.update(store.state.auth.abilities)
       next()

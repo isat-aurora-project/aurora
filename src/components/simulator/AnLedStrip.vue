@@ -9,19 +9,17 @@
 </template>
 
 <script>
-import AnLed from '@/components/simulator/AnLed.vue'
-export default {
-  name: 'AnLedStrip',
-  components: {
-    AnLed
-  },
-  props:{
-    leds:{
-      type: Array,
-      default: () => []
+  import AnLed from '@/components/simulator/AnLed.vue'
+  export default {
+    name: 'AnLedStrip',
+    components: {
+      AnLed
+    },
+    props: {
+      leds: {
+        type: Array,
+        default: () => []
+      }
     }
   }
-}
 </script>
-
-

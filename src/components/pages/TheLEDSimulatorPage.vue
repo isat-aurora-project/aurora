@@ -2,7 +2,12 @@
   <v-container>
     <v-layout>
       <v-flex xs12>
-        <v-card class="mx-auto" color="#B0C4DE" width="968" height="800">
+        <v-card
+          class="mx-auto"
+          color="#B0C4DE"
+          width="968"
+          height="800"
+        >
           <v-card-actions>
             <v-btn 
               id="button"
@@ -16,11 +21,14 @@
           <div class="position">
             <div>
               <an-led-strip :leds="strip.slice(  0, 121)" class="strip1 strip-horizontal" />
-              <an-led-strip :leds="strip.slice(121, 212)" class="strip2 strip-vertical"   />
+              <an-led-strip :leds="strip.slice(121, 212)" class="strip2 strip-vertical" />
               <an-led-strip :leds="strip.slice(212, 333)" class="strip3 strip-horizontal" />
-              <an-led-strip :leds="strip.slice(333, 424)" class="strip4 strip-vertical"   />
+              <an-led-strip :leds="strip.slice(333, 424)" class="strip4 strip-vertical" />
             </div>
-            <the-code-editor class="plot"  language="javascript" ></the-code-editor>
+            <the-code-editor
+              class="plot"
+              language="javascript"
+            />
           </div>
         </v-card>
       </v-flex>
@@ -30,11 +38,11 @@
 
 
 <script>
-//import { setInterval } from 'timers';
-// import { scan } from '@/scripts/demo'
-import TheCodeEditor from '@/components/TheCodeEditor'
-import AnLedStrip from '@/components/simulator/AnLedStrip'
-let text = `// DO NOT REMOVE COMMENTS!!
+  //import { setInterval } from 'timers';
+  // import { scan } from '@/scripts/demo'
+  import TheCodeEditor from '@/components/TheCodeEditor'
+  import AnLedStrip from '@/components/simulator/AnLedStrip'
+  let text = `// DO NOT REMOVE COMMENTS!!
 setup () {
   strip.map((p, i) => {
     p.color = i === 0 ? 'black': 'red'
@@ -53,73 +61,67 @@ loop () {
   strip[next].color = 'black'
 }/***END LOOP***/
 `
-export default {
-  components: {
-    AnLedStrip,
-    TheCodeEditor,
-  },
 
-  data: () => ({
-    intervalID: null,
-    running: false,
-    stop: stop,
-    strip: []
-  }),
-  
-  methods: {
-    errors (context, method, message) { 
-  return function() {
-    method.apply(context, [message].concat(Array.prototype.slice.apply(arguments)))
-  }
-},
-    start_stop () {
-      // figure out if we're starting or stopping
-      if (this.running) {
-        // we need to stop
-        // stop the code
-        clearInterval(this.intervalID)
-      } else {
-        // we need to start
-        // get the current code from the editor
-        const code = this.code
-        // make sure they didn't delete the END SETUP  and END LOOP comments
-        if (!code.includes('/***END SETUP***/') || !code.includes('/***END LOOP***/')) {
-          // uh oh!!!
-          console.log('Houston, we have a problem. (closing comments deleted)')
-          return
+  export default {
+    components: {
+      AnLedStrip,
+      TheCodeEditor,
+    },
+    data: () => ({
+      intervalID: null,
+      running: false,
+      stop: stop,
+      strip: []
+    }),
+    methods: {
+      errors (context, method, message) { 
+        return function() {
+          method.apply(context, [message].concat(Array.prototype.slice.apply(arguments)))
         }
-        // get the content of the setup() function in a string variable
-        const getSetup = /setup ?\(.*?\)\s*\{(.*?)}\/\*\*\*END SETUP/is
-        const getLoop = /loop ?\(.*?\)\s*\{(.*?)}\/\*\*\*END LOOP/is
-        // get the content of the loop() function in a string variable   
-        // create and run the setup() function
-        const setup = code.match(getSetup)[1]
-        const loop = code.match(getLoop)[1]
-        
-        const setupFunction = new Function('strip', setup)
-        setupFunction(this.strip)
-        // create the loop function and give it to setInterval
-        // load into the Function that will run
-        const f = new Function('strip', loop)
-        // do any initialization, if necessary
-        // start
-        this.intervalID = setInterval(f, 200, this.strip)
-        
-
-      }
-      // toggle this.running
-      this.running = !this.running
-
+      },
+      start_stop () {
+        // figure out if we're starting or stopping
+        if (this.running) {
+          // we need to stop
+          // stop the code
+          clearInterval(this.intervalID)
+        } else {
+          // we need to start
+          // get the current code from the editor
+          const code = this.code
+          // make sure they didn't delete the END SETUP  and END LOOP comments
+          if (!code.includes('/***END SETUP***/') || !code.includes('/***END LOOP***/')) {
+            // uh oh!!!
+            console.log('Houston, we have a problem. (closing comments deleted)')
+            return
+          }
+          // get the content of the setup() function in a string variable
+          const getSetup = /setup ?\(.*?\)\s*\{(.*?)}\/\*\*\*END SETUP/is
+          const getLoop = /loop ?\(.*?\)\s*\{(.*?)}\/\*\*\*END LOOP/is
+          // get the content of the loop() function in a string variable   
+          // create and run the setup() function
+          const setup = code.match(getSetup)[1]
+          const loop = code.match(getLoop)[1]
+          
+          const setupFunction = new Function('strip', setup)
+          setupFunction(this.strip)
+          // create the loop function and give it to setInterval
+          // load into the Function that will run
+          const f = new Function('strip', loop)
+          // do any initialization, if necessary
+          // start
+          this.intervalID = setInterval(f, 200, this.strip)
+        }
+        // toggle this.running
+        this.running = !this.running
+      }      
+    },
+    mounted: function() {
+      // initialize the strip of LEDs
+      this.strip = new Array(424).fill().map(el => ({ color: 'black' }))
+      this.strip[0].color = 'red'
     }
-    
-  },
-  mounted: function() {
-    // initialize the strip of LEDs
-    this.strip = new Array(424).fill().map(el => ({ color: 'black' }))
-    this.strip[0].color = 'red'
   }
-};
-
 </script>
 
 <style>

@@ -37,7 +37,7 @@
   "devDependencies": {
     "@mdi/js": "^3.6.95",
     "@vue/cli-plugin-babel": "^3.8.0",
-    "@vue/cli-plugin-e2e-cypress": "^3.8.0",
+    "@vue/cli-plugin-e2e-cypress": "^3.9.0",
     "@vue/cli-plugin-eslint": "^3.8.0",
     "@vue/cli-plugin-pwa": "^3.8.0",
     "@vue/cli-plugin-unit-jest": "^3.9.0",

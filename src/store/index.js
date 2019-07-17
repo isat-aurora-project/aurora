@@ -20,6 +20,19 @@ const local = new VuexPersistence({
   strictMode: debug
 })
 
+// plugin to handle when store has been restored
+const handleRestore = () => {
+  return store => {
+    store._vm.$root.$data['storageReady'] = false
+    store.subscribe(mutation => {
+      if (mutation.type === 'RESTORE_MUTATION') {
+        store._vm.$root.$data['storageReady'] = true
+        store._vm.$root.$emit('storageReady')
+      }
+    })
+  }
+}
+
 export const store = new Vuex.Store({
   strict: debug,
   modules: {
@@ -29,5 +42,5 @@ export const store = new Vuex.Store({
   mutations: {
     RESTORE_MUTATION: local.RESTORE_MUTATION
   },
-  plugins: [local.plugin, abilityPlugin]
+  plugins: [local.plugin, abilityPlugin, handleRestore()]
 })
