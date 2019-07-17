@@ -1,85 +1,87 @@
 <template>
-<div>
-<div>
-    <v-card>
-      <codemirror
-        v-model="code"
-        :options="cmOptions"
-      />
-      <v-card-actions>
-        <v-btn 
-          color="primary"
-          @click="save()"
-        >
-          Save
-        </v-btn>
-        <v-btn 
-          color="primary"
-          @click="saveAs()"
-        >
-          Save As
-          </v-btn>
-          <v-spacer />
-          <v-btn 
-          color="primary"
-          @click="test()"
-        >
-          Test
-          </v-btn>
-      </v-card-actions> 
-    </v-card>
-</div>
-<div>
-    <v-card>
-          <v-flex xs12>
-            <v-card color="blue-grey darken-2" class="white--text">
-              <v-card-title primary-title>
-                <div>
-                  <div class="headline">Test Your Code</div>
-                </div>
-              </v-card-title>
-            </v-card>
-          </v-flex>
-    </v-card>
-    </div>
-  </div>
+<v-container>
+  <div id="editor" class="plot"></div>
+
+
+
+</v-container>
 </template>
 
-
 <script>
-  import { codemirror } from 'vue-codemirror'
-  import 'codemirror/mode/javascript/javascript.js'
-  import 'codemirror/lib/codemirror.css'
-  import 'codemirror/theme/monokai.css'
+  // import the monaco editor package
+  import * as monaco from 'monaco-editor'
+  const Linter = require("eslint4b/dist/linter")
+  const { indent, quotes, semi } = require("eslint4b/dist/core-rules")
+const linter = new Linter()
+linter.defineRule("indent", indent)
+linter.defineRule("quotes", quotes)
+linter.defineRule("semi", semi)
+  let text = `// DO NOT REMOVE COMMENTS!!
+setup () {
+  strip.map((p, i) => {
+    p.color = i === 0 ? 'black': 'red'
+    return p
+  })
+}/***END SETUP***/
 
+loop () {
+  // find out the currently "unlit" pixel in our strip
+  const unlit = strip.findIndex(led => led.color === 'black')
+  // turn "on" the currently unlit pixel
+  strip[unlit].color = 'red'
+  // figure out the next pixel
+  const next = unlit + 1 === strip.length ? 0 : unlit + 1
+  // turn it "off"
+  strip[next].color = 'black'
+}/***END LOOP***/
+`
   export default {
-    name: 'TheCodeEditor',
-    components: {
-      codemirror
+    name: "TheCodeEditor",
+    props: {
+      language: {
+        type: String,
+        default: 'javascript'
+      }
     },
+    //value(newVal, ) {
+    // if (newVal !== this.editor.getValue()) {
+    //  this.editor.setValue(newVal)
+    //  }
+    //},
     data: () => ({
-      code: 'const a = 10',
-      cmOptions: {
-        tabSize: 2,
-        styleActiveLine: true,
-        lineNumbers: true,
-        line: true,
-        mode: 'text/javascript',
-        lineWrapping: true,
-        theme: 'monokai',
-        gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"]
-      }
+      monaco: null
     }),
-    methods: {
-      save () {
-        console.log("hi")
-      },
-       saveAs () {
-        console.log("hello")
-      },
-        test () {
-        console.log("hey there")
-      }
+    mounted () {
+      // assign monaco-editor to a local variable
+      this.monaco = monaco
+      // configure monaco to NOT use default syntax/semantic validation
+      this.monaco.languages.typescript.javascriptDefaults.setDiagnosticsOptions({
+        noSemanticValidation: true,
+        noSyntaxValidation: true,
+      })
+      // add in code to make our editor use ESLint (actually eslint4b)
+
+      // create and set this.options to correct values
+
+      // AFTER you've done all of your configuration...
+      // create the editor
+      this.editor = monaco.editor.create(this.$el, {
+        value: text,
+        language: "javascript",
+        font: "Arial",
+        readOnly: this.readOnly,
+        ... this.options
+      })
+      this.editor.onDidChangeModelContent(() => {
+        if (this.$emit) {
+          const content = this.editor.getValue()
+          this.$emit('input', content)
+        }
+      })
     }
   }
+
 </script>
+
+<style>
+</style>

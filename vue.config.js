@@ -25,7 +25,7 @@ module.exports = {
     config.plugins.push(new MonacoWebpackPlugin({
       languages: [
         'javascript',
-        'python'
+        'typescript'
       ]
     }))
     config.devtool = 'source-map'

@@ -60,6 +60,7 @@ export default {
   },
 
   data: () => ({
+    code: text,
     intervalID: null,
     running: false,
     stop: stop,
