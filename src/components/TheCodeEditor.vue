@@ -11,6 +11,28 @@
   linter.defineRule('indent', indent)
   linter.defineRule('quotes', quotes)
   linter.defineRule('semi', semi)
+  self.addEventListener('code', event => {
+    const { code, version } = event.data;
+
+//    try {
+//    const markers = linter.verify(
+//      code,
+//      { /* ESLint config */ }
+//    ).map(err => ({
+//      startLineNumber: err.line,
+//      endLineNumber: err.line,
+//      startColumn: err.column,
+//      endColumn: err.column,
+//      message: `${err.message} (${err.ruleId})`,
+//      severity: 3,
+//      source: this.code,
+//    }));
+
+//    self.postMessage({ markers, version });
+//  } catch (e) {
+    /* Ignore error */
+//  }
+});
   export default {
     name: 'TheCodeEditor',
     props: {
@@ -34,16 +56,12 @@
         noSemanticValidation: true,
         noSyntaxValidation: true
       })
+      this.monaco.editor.setModelMarkers
       // add in code to make our editor use ESLint (actually eslint4b)
 
-      // create and set this.options to correct values
-
-      // AFTER you've done all of your configuration...
-      // create the editor
       this.editor = monaco.editor.create(this.$el, {
         value: this.code,
         language: 'javascript',
-        ...this.options
       })
       this.editor.onDidChangeModelContent(() => {
         if (this.$emit) {
