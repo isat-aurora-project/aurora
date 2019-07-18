@@ -45,12 +45,12 @@
     }),
     mounted () {
       const linter = new Linter()
-  linter.defineRule('indent', indent)
-  linter.defineRule('quotes', quotes)
-  linter.defineRule('semi', semi)
-  self.addEventListener('code', event => {
-    const { code, version } = event.data;
-    })
+        linter.defineRule('indent', indent)
+        linter.defineRule('quotes', quotes)
+        linter.defineRule('semi', semi)
+        self.addEventListener('code', event => {
+          const { code, version } = event.data;
+        })
       // assign monaco-editor to a local variable
       this.monaco = monaco
       // configure monaco to NOT use default syntax/semantic validation
